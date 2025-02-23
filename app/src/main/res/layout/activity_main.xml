@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        tools:ignore="MissingClass" />
+
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="Pure-Tone Audiometry &amp; Equalizer"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_get_start"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
+        android:backgroundTint="#59B835"
+        android:text="Get start"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_title"
+        app:layout_constraintVertical_bias="0.698"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/button_equalizer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Equalizer"
+        android:textSize="30sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#1B18D0"
+        app:layout_constraintTop_toBottomOf="@+id/button_get_start"
+        app:layout_constraintStart_toStartOf="@id/button_get_start"
+        app:layout_constraintEnd_toEndOf="@id/button_get_start"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/button_psap"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="PSAP"
+        android:textSize="30sp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#ED702D"
+        app:layout_constraintTop_toBottomOf="@+id/button_equalizer"
+        app:layout_constraintStart_toStartOf="@id/button_equalizer"
+        app:layout_constraintEnd_toEndOf="@id/button_equalizer"
+        android:layout_marginTop="16dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton_setting"
+        android:layout_width="60dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="568dp"
+        android:layout_marginEnd="64dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_preferences"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton_info"
+        android:layout_width="60dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="568dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_info_details"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton_setting"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

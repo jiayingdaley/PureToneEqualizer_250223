@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="seekbar_height">400dp</dimen>
+    <dimen name="seekbar_width">75dp</dimen>
+    <dimen name="tick_width">50dp</dimen>
+    <dimen name="tick_height">2dp</dimen>
+</resources>
