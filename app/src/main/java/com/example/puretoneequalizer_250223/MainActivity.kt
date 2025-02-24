@@ -19,18 +19,16 @@ class MainActivity : ComponentActivity() {
 
             // 產生檔名
             val currentTime = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault()).format(Date()) // 使用 SimpleDateFormat 格式化時間
-            val filename = "${currentTime}_Customize"
+            val filename = "${currentTime}_PureTone_"
 
             intent.putExtra("FILENAME", filename) // 將檔名放入 Intent
             startActivity(intent)
         }
 
-        val equalizerButton = findViewById<Button>(R.id.button_equalizer)
-        equalizerButton.setOnClickListener {
-            // 啟動 EqualizerActivity，並傳遞檔名資訊 (例如預設檔名 "Default_Filename")
-            val intent = Intent(this, EqualizerActivity::class.java)
-            intent.putExtra("FILENAME", "Default_Filename") // 傳遞預設檔名
-            startActivity(intent)
+        // ** [新增] 找到 'PSAP' 按鈕並設定點擊事件監聽器 **
+        findViewById<Button>(R.id.button_psap).setOnClickListener { //  <--  找到 button_psap
+            val intent = Intent(this, PsapActivity::class.java) //  <--  建立啟動 PsapActivity 的 Intent
+            startActivity(intent) //  <--  啟動 PsapActivity
         }
 
         // ... 其他按鈕的點擊事件處理 ...

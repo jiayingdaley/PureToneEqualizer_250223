@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_title"
-        app:layout_constraintVertical_bias="0.698"
+        app:layout_constraintVertical_bias="0.397"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
@@ -72,6 +72,7 @@
         app:layout_constraintStart_toStartOf="@id/button_equalizer"
         app:layout_constraintEnd_toEndOf="@id/button_equalizer"
         android:layout_marginTop="16dp" />
+
 
     <ImageButton
         android:id="@+id/imageButton_setting"
