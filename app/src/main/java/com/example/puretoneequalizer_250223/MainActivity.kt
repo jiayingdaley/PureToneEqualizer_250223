@@ -25,12 +25,17 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
 
-        // ** [新增] 找到 'PSAP' 按鈕並設定點擊事件監聽器 **
+        // 'PSAP' 按鈕並設定點擊事件監聽器
         findViewById<Button>(R.id.button_psap).setOnClickListener { //  <--  找到 button_psap
             val intent = Intent(this, PsapActivity::class.java) //  <--  建立啟動 PsapActivity 的 Intent
             startActivity(intent) //  <--  啟動 PsapActivity
         }
 
-        // ... 其他按鈕的點擊事件處理 ...
+        // 修改 "Get start" 按鈕的點擊事件
+        findViewById<Button>(R.id.button_get_start).setOnClickListener {
+            val intent = Intent(this, TestSelectActivity::class.java)
+            startActivity(intent)
+        }
+    // ... 其他按鈕的點擊事件處理 ...
     }
 }

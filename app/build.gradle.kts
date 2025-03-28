@@ -6,12 +6,13 @@ plugins {
 
 android {
     namespace = "com.example.puretoneequalizer_250223"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.puretoneequalizer_250223"
         minSdk = 29
-        targetSdk = 34
+        //noinspection OldTargetApi
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -40,6 +41,11 @@ android {
 }
 
 dependencies {
+    // JUnit 測試框架
+    testImplementation(libs.junit)
+    // Android Testing 支援
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

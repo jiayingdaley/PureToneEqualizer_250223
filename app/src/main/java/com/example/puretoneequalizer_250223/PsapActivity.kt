@@ -77,10 +77,6 @@ class PsapActivity : AppCompatActivity() {
             equalizerRight = null
         }
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.fkj_drops) //  **  [暫時] 建立一個 MediaPlayer 物件，方便測試，之後可能需要根據實際音訊來源調整  **
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
-
 
         // TODO... (各 UI 元素事件監聽器設定 ) ...
         // ** 恢復 UI 狀態從 SharedPreferences **
@@ -126,7 +122,6 @@ class PsapActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 currentAmplificationLevel = progress.toFloat()
                 val volumeLevel = progress.toFloat() / 100f // 將 SeekBar Progress (0-100) 轉換為相對音量值 (0.0-1.0)
-                mediaPlayer?.setVolume(volumeLevel, volumeLevel)
                 println("Amplification SeekBar Progress: ${progress}, Volume Level: ${volumeLevel}")
 
                 // ** 保存 Amplification SeekBar 值到 SharedPreferences **
@@ -153,7 +148,6 @@ class PsapActivity : AppCompatActivity() {
                 val balanceValue = currentBalanceLevel / 100f // 歸一化到 -1.0f ~ +1.0f
                 val rightVolume = if (balanceValue > 0) 1f else 1f + balanceValue
                 val leftVolume = if (balanceValue < 0) 1f else 1f - balanceValue
-                mediaPlayer?.setVolume(leftVolume, rightVolume)
                 println("Balance SeekBar Progress: ${progress}, Balance Value: ${balanceValue}, Left Volume: ${leftVolume}, Right Volume: ${rightVolume}")
 
                 // ** 保存 Balance SeekBar 值到 SharedPreferences **

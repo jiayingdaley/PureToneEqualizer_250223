@@ -153,7 +153,11 @@ class EqualizerActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
 
             // 建立頻率標籤 TextView
             val frequencyTextView = TextView(this)
-            frequencyTextView.text = frequency.toString()
+            frequencyTextView.text = if (frequency == 31.25) {
+                frequency.toString()
+            } else {
+                frequency.toInt().toString()
+            }
             frequencyTextView.textSize = 16f
             frequencyTextView.gravity = android.view.Gravity.CENTER_HORIZONTAL
             frequencyColumnLayout.addView(frequencyTextView)
@@ -538,51 +542,57 @@ class EqualizerActivity : AppCompatActivity(), Slider.OnSliderTouchListener {
     }
 
     private fun playPureTone(frequency: Double, amplitude: Float) {
-        // stopPureTone() // 停止任何正在播放的純音  **  [移除]  不再每次都停止和釋放 AudioTrack **
-
         currentFrequency = frequency
         currentAmplitude = amplitude
 
         val sampleRate = 44100 // 常用取樣率
-        val duration = 0.2 // 純音持續時間 (例如 0.1 秒)
+        val duration = 0.2 // 純音持續時間
         val numSamples = (duration * sampleRate).toInt()
         val samples = DoubleArray(numSamples)
-        val buffer = ShortArray(numSamples)
+        val buffer = ShortArray(numSamples * 2) // 立體聲需要兩倍的 buffer 大小
 
         val bufferSize = AudioTrack.getMinBufferSize(
             sampleRate,
-            AudioFormat.CHANNEL_OUT_MONO,
+            AudioFormat.CHANNEL_OUT_STEREO, // 使用立體聲道
             AudioFormat.ENCODING_PCM_16BIT
         )
 
-
-        // 產生正弦波樣本
+        // 產生正弦波樣本並寫入對應的聲道
         for (i in 0 until numSamples) {
-            samples[i] = amplitude * Math.sin(2.0 * Math.PI * frequency * i / sampleRate)
-            buffer[i] = (samples[i] * Short.MAX_VALUE).toInt().toShort() // 轉換為 Short
-        }
+            val sampleValue = (amplitude * Math.sin(2.0 * Math.PI * frequency * i / sampleRate) * Short.MAX_VALUE).toInt().toShort()
 
+            when (currentSelectedEar) {
+                EarType.Left -> {
+                    buffer[i * 2] = sampleValue     // 左聲道
+                    buffer[i * 2 + 1] = 0           // 右聲道
+                }
+                EarType.Right -> {
+                    buffer[i * 2] = 0               // 左聲道
+                    buffer[i * 2 + 1] = sampleValue // 右聲道
+                }
+            }
+        }
 
         // 建立 AudioTrack 物件
         audioTrack = AudioTrack(
             AudioManager.STREAM_MUSIC,
             sampleRate,
-            AudioFormat.CHANNEL_OUT_MONO,
+            AudioFormat.CHANNEL_OUT_STEREO, // 使用立體聲道
             AudioFormat.ENCODING_PCM_16BIT,
             bufferSize, // 使用最小緩衝區大小
             AudioTrack.MODE_STREAM // 改為 STREAM 模式，更適合頻繁更新數據
         )
 
-        //  **  重複使用已建立的 audioTrack 物件，只更新音訊數據 **
-        audioTrack?.stop() //  **  先停止播放 (如果正在播放)  **
-        audioTrack?.flush() //  **  清空暫存區 **
-        audioTrack?.write(buffer, 0, buffer.size) //  **  寫入新的音訊數據 **
+        //  ** 重複使用已建立的 audioTrack 物件，只更新音訊數據 **
+        audioTrack?.stop() //  ** 先停止播放 (如果正在播放)  **
+        audioTrack?.flush() //  ** 清空暫存區 **
+        audioTrack?.write(buffer, 0, buffer.size) //  ** 寫入新的音訊數據 **
 
-        audioTrack?.play() //  **  重新播放 **
-
+        audioTrack?.play() //  ** 重新播放 **
 
         println("Pure Tone Amplitude: $amplitude")
-        println("Buffer Value Example: ${buffer.firstOrNull()}")
+        println("Buffer Value Example (Left): ${buffer.firstOrNull()}")
+        println("Buffer Value Example (Right): ${buffer.getOrNull(1)}")
     }
 
     private fun stopPureTone() {
